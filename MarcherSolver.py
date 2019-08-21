@@ -169,6 +169,14 @@ def time(mp, speed, pix):
     return (1 / speed(mp, pix))
 
 
+# Speed function(1)
+# The speed at the pixel b is dependent on the amount of
+# white it has.
+def maze_speed(mp, p):
+    pb = mp.pixels[p]
+    dst = (pb[0])**2 + (pb[1])**2 + (pb[2])**2
+    return ((dst/100.0) ** 0.5) + 0.01
+
 if(__name__ == "__main__"):
     inp = Map("images/bigmaze.ppm")
-    cost = findPath(inp, white_speed)
+    cost = findPath(inp, maze_speed)
