@@ -98,16 +98,13 @@ def dijkstra(mp, speed):
     
     addNodeToHeap(nodesToVisit, (0,1), mp, speed, nodesSeen)
     addNodeToHeap(nodesToVisit, (1,0), mp, speed, nodesSeen)
-    visited = set()
-    count=0
+
+    # While there are still nodes to visit
     while(nodesToVisit.size > 0):
 
         # Pop the first element
         currNode =  nodesToVisit.extract_min(mp, speed, nodesSeen)
-        if(currNode in visited):
-            count+=1
-        else:
-            visited.add(currNode)
+
         topNeighbour = (currNode[0], currNode[1] - 1)
         rightNeighbour = (currNode[0] + 1, currNode[1])
         bottomNeighbour = (currNode[0], currNode[1] + 1)
@@ -168,18 +165,18 @@ def time(mp, speed, pix):
     return (1 / speed(mp, pix))
 
 
-# Speed function(1)
-# The speed at the pixel b is dependent on the amount of
-# white it has.
+# Speed function for a black & white maze
+# The speed at the pixel p is dependent on the amount of white it has.
 def maze_speed(mp, p):
     pb = mp.pixels[p]
     dst = (pb[0])**2 + (pb[1])**2 + (pb[2])**2
     return ((dst/100.0) ** 0.5) + 0.01
 
+
 if(__name__ == "__main__"):
     while True:
 
-        # Promp for file path
+        # Prompt for file path
         filePath = input("Enter path to PPM file (\'exit\' to exit): ")
         try:
             if(filePath == "exit"):
