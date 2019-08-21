@@ -7,7 +7,11 @@ An implementation of Dijkstra's algorithm to solve a given maze.
 
 
 ## Running the Program
-This script requires Python 3. To Run: `python MazeSolver.py`
+This script requires Python 3 and the Pillow library (for image processing). 
+
+To install dependencies: `pip install requirements.txt` in the root folder
+
+To execute: `python MazeSolver.py`
 
 Results will be saved in the "output" folder, and there are two sample images in the "images" folder.
 
