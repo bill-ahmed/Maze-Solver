@@ -156,12 +156,11 @@ def dijkstra(mp, speed):
                 nodesSeen[leftNeighbour] = nodesSeen[currNode] + leftNeighbourTime
                 pathsToNodes.update({leftNeighbour : pathsToNodes[currNode] + [currNode]})
                 addNodeToHeap(nodesToVisit, leftNeighbour, mp, speed, nodesSeen)
-    print("Visited an existing node", count, "number of times")
+
     return [nodesSeen, pathsToNodes]
 
 
 def addNodeToHeap(heap, nodeToAdd, mp, speed, nodesSeen):
-    newNodeTime = time(mp, speed, nodeToAdd)    # Store time, because speed is in units/second
     heap.insert(nodeToAdd, mp, speed, nodesSeen)    
 
 
@@ -178,5 +177,27 @@ def maze_speed(mp, p):
     return ((dst/100.0) ** 0.5) + 0.01
 
 if(__name__ == "__main__"):
-    inp = Map("images/bigmaze.ppm")
-    cost = findPath(inp, maze_speed)
+    while True:
+
+        # Promp for file path
+        filePath = input("Enter path to PPM file (\'exit\' to exit): ")
+        try:
+            if(filePath == "exit"):
+                break
+            p = open(filePath)      # Check if file exists
+
+        except:
+            print("Error: Unable to open the file specified.")
+            exit(1)
+        
+        # Run dijkstra implementation to find path to end
+        try:
+            inp = Map(filePath)
+            path = findPath(inp, maze_speed)
+            inp.outputPath()
+            print("Finished! Check the \"output\" folder for results.")
+        except:
+            print("Error: Unable to find path.")
+        
+        del p   # Close file stream
+        
